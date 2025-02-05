@@ -7,7 +7,6 @@ import { DateTime } from 'luxon'
 export default class BookingsController {
   /**
    * @getBookings
-   * @param {HttpContext} - HTTP context object containing response
    * @description Retrieve all bookings from the database
    * @responseBody 200 - <Booking[]>
    * @responseBody 500 - Internal server error
@@ -24,7 +23,6 @@ export default class BookingsController {
   /**
    * @getOneBooking
    * @description Retrieve a single booking by ID
-   * @param {HttpContext} - HTTP context object containing params and response
    * @response id - Booking ID to fetch - @type(HttpContext) @required
    * @responseBody 200 - <Booking>
    * @responseBody 404 - Booking not found
@@ -47,7 +45,6 @@ export default class BookingsController {
   /**
    * @createBooking
    * @description Create a new booking in the database
-   * @param {HttpContext} - HTTP context object containing request and response
    * @requestBody - Booking data to create - @type(HttpContext) @required
    * @responseBody 201 - <Booking>
    * @responseBody 422 - Validation error
@@ -69,7 +66,6 @@ export default class BookingsController {
   /**
    * @updateBooking
    * @description Update an existing booking by ID
-   * @param {HttpContext} - HTTP context object containing request, response and params
    * @response id - Booking ID to update - @type(HttpContext) @required
    * @requestBody - Updated booking data - @type(HttpContext) @required
    * @responseBody 200 - <Booking>
@@ -105,7 +101,6 @@ export default class BookingsController {
   /**
    * @deleteBooking
    * @description Delete a booking by ID
-   * @param {HttpContext} - HTTP context object containing response and params
    * @response id - Booking ID to delete - @type(HttpContext) @required
    * @responseBody 204 - No content, booking deleted successfully
    * @responseBody 404 - Booking not found
