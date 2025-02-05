@@ -121,6 +121,12 @@ export default class BookingsController {
     }
   }
 
+  /**
+   * @getBookingForToday
+   * @description Retrieve all bookings of the day
+   * @responseBody 200 - <Booking[]>
+   * @responseBody 500 - Internal server error
+   */
   async getBookingForToday({ response }: HttpContext) {
     try {
       const bookings = await Booking.query()
