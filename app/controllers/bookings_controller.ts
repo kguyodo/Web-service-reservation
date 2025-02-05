@@ -3,6 +3,9 @@ import { createBookingValidator, updateBookingValidator } from '#validators/book
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
+import MailController from './mail_controller.js'
+import Customer from '#models/customer'
+import Experience from '#models/experience'
 
 export default class BookingsController {
   /**
@@ -51,15 +54,55 @@ export default class BookingsController {
    * @responseBody 500 - Internal server error
    */
   async createBooking({ request, response }: HttpContext) {
-    const booking = new Booking()
     try {
       const bookingData = await createBookingValidator.validate(request.body())
-      Object.assign(booking, bookingData)
-      booking.startDateTime = DateTime.fromJSDate(bookingData.startDateTime)
-      const savedBooking = await Booking.create(booking)
-      return response.created(savedBooking)
+
+      const booking = await Booking.create({
+        ...bookingData,
+        startDateTime: DateTime.fromJSDate(bookingData.startDateTime),
+      })
+
+      const [customer, experience] = await Promise.all([
+        Customer.find(booking.customerId),
+        Experience.find(booking.experienceId),
+      ])
+
+      if (!customer) {
+        console.warn(
+          `Customer with ID ${booking.customerId} not found. No confirmation email will be sent.`
+        )
+      }
+      if (!experience) {
+        console.warn(
+          `Experience with ID ${booking.experienceId} not found. No confirmation email will be sent.`
+        )
+      }
+
+      if (customer && experience && booking.startDateTime) {
+        const formattedDateTime = booking.startDateTime
+          .setLocale('fr')
+          .toFormat("d MMMM yyyy 'à' HH'h'mm")
+
+        const bookingInfo = {
+          startDateTime: formattedDateTime,
+          durationTime: booking.durationTime,
+          playersNumber: booking.playersNumber,
+          comment: booking.comment,
+          experience: experience.name,
+          userEmail: customer.email,
+        }
+
+        try {
+          const mailController = new MailController()
+          await mailController.sendConfirmationEmail(bookingInfo)
+        } catch (error) {
+          console.error('Failed to send confirmation email:', error.message)
+        }
+      }
+
+      return response.created(booking)
     } catch (error) {
-      throw new Exception(error, { status: error.status || 500 })
+      return response.internalServerError({ message: 'An error occurred', details: error.message })
     }
   }
 
