@@ -5,9 +5,8 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.uuid('id').primary().index()
-      table.date('date')
-      table.time('start_hour')
+      table.uuid('id').primary().unique()
+      table.dateTime('start_date_time')
       table.integer('duration_time')
       table.integer('players_number')
       table.bigint('experience_id')
