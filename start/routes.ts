@@ -25,8 +25,16 @@ router.get('/', () => {
 
 router
   .group(() => {
-    router.get('/:id', [CustomersController, 'getOneCustomer'])
-    router.get('/', [CustomersController, 'getCustomers'])
+    router.get('/:id', [CustomersController, 'getOneCustomer']).use(
+      middleware.auth({
+        guards: ['api'],
+      })
+    )
+    router.get('/', [CustomersController, 'getCustomers']).use(
+      middleware.auth({
+        guards: ['api'],
+      })
+    )
     router.post('/', [CustomersController, 'postCustomer'])
     router.put('/:id', [CustomersController, 'putCustomer'])
   })
