@@ -1,20 +1,26 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import AutoSwagger from 'adonis-autoswagger'
+import swagger from '#config/swagger'
 
 const UsersController = () => import('#controllers/users_controller')
 const MailController = () => import('#controllers/mail_controller')
 const ExperiencesController = () => import('#controllers/experiences_controller')
 const BookingsController = () => import('#controllers/bookings_controller')
 
-router
-  .get('/', () => {
-    return { name: 'Hello World young frog' }
-  })
-  .use(
-    middleware.auth({
-      guards: ['api'],
-    })
-  )
+// Returns swagger in YAML
+router.get('/swagger', async () => {
+  return AutoSwagger.default.docs(router.toJSON(), swagger)
+})
+
+// Renders Swagger-UI and passes YAML-output of /swagger
+router.get('/docs', async () => {
+  return AutoSwagger.default.ui('/swagger', swagger)
+})
+
+router.get('/', () => {
+  name: 'Hello World young frog'
+})
 
 router
   .group(() => {
@@ -36,7 +42,6 @@ router
       .use(middleware.auth({ guards: ['api'] }))
   })
   .prefix('/experiences')
-
 router
   .group(() => {
     router.get('/', [BookingsController, 'getBookings'])

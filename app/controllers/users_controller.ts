@@ -2,11 +2,19 @@ import type { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { Exception } from '@adonisjs/core/exceptions'
 import hash from '@adonisjs/core/services/hash'
+import { loginValidator, registerValidator } from '#validators/user_validator'
 
 export default class UsersController {
 
+    /**
+     * @login
+     * @summary Login an admin user 
+     * @requestBody <loginValidator>
+     * @responseBody 200 - {"type": "bearer", "value": "yourBearerToken"}
+     * 
+     */
     async login({request, response}: HttpContext) {
-        const requestBody = request.body() as User
+        const requestBody = await loginValidator.validate(request.body() as User) 
         const user = await User.query().where('email', requestBody.email).firstOrFail()
 
         if (!user) {
@@ -27,13 +35,15 @@ export default class UsersController {
         })
     }
 
+    /**
+     * @register
+     * @summary Register a new admin user (used for test only)
+     * @requestBody <registerValidator>
+     * @responseBody 201 - <User>
+     */
     async register({request, response}: HttpContext) {
-        const { email, fullName, password } = request.body() as User
-        const newUser = await User.create({
-            email,
-            fullName,
-            password,
-        })
+        const user = await registerValidator.validate(request.body() as User)
+        const newUser = await User.create({...user})
 
         return response.created(newUser.serialize())
     }
