@@ -26,6 +26,6 @@ router.get('/send-mail', [MailController, 'sendEmail']).use(middleware.auth({ gu
 router.group(() => {
   router.get('/', [ExperiencesController, 'getExperiences'])
   router.post('/', [ExperiencesController, 'createExperience']).use(middleware.auth({ guards: ['api'] }))
-  router.delete('/', [ExperiencesController, 'deleteExperience']).use(middleware.auth({ guards: ['api'] }))
+  router.delete('/:id', [ExperiencesController, 'deleteExperience']).use(middleware.auth({ guards: ['api'] }))
 })
 .prefix('/experiences')
