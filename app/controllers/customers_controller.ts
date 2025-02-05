@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { Exception } from '@adonisjs/core/exceptions'
 import Customer from '#models/customer'
-import { customerValidator } from '#validators/customer'
+import { customerValidator } from '#validators/customer_validator'
 
 export default class CustomersController {
   /**

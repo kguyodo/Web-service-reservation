@@ -13,6 +13,3 @@ export const customerValidator = vine.compile(
     companyName: vine.string().optional(),
   })
 )
-
-// const data = getDataToValidate()
-// await vine.validate({ schema, data })
