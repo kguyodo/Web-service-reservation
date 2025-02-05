@@ -120,4 +120,17 @@ export default class BookingsController {
       })
     }
   }
+
+  async getBookingForToday({ response }: HttpContext) {
+    try {
+      const bookings = await Booking.query()
+        .where('start_date_time', '>=', DateTime.now().startOf('day').toISO())
+        .where('start_date_time', '<=', DateTime.now().endOf('day').toISO())
+      return response.json(bookings)
+    } catch (error) {
+      throw new Exception('An error occurred while fetching all bookings of the day', {
+        status: 500,
+      })
+    }
+  }
 }
