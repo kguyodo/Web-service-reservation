@@ -38,11 +38,11 @@ router.post('/login', async ({ request }) => {
 
 router.post('/users', async ({ request }) => {
   const { email, fullName, password } = request.body() as User
-  const test = await User.create({
+  const newUser = await User.create({
     email,
     fullName,
     password,
   })
 
-  return test.serialize()
+  return newUser.serialize()
 })
