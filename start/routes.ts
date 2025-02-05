@@ -4,6 +4,7 @@ import { middleware } from './kernel.js'
 const UsersController = () => import('#controllers/users_controller')
 const MailController = () => import('#controllers/mail_controller')
 const ExperiencesController = () => import('#controllers/experiences_controller')
+const BookingsController = () => import('#controllers/bookings_controller')
 
 router
   .get('/', () => {
@@ -15,17 +16,38 @@ router
     })
   )
 
-router.group(() => {
-  router.post('/login', [UsersController, 'login'])
-  router.post('/register', [UsersController, 'register'])
-})
-.prefix('/users')
+router
+  .group(() => {
+    router.post('/login', [UsersController, 'login'])
+    router.post('/register', [UsersController, 'register'])
+  })
+  .prefix('/users')
 
 router.get('/send-mail', [MailController, 'sendEmail']).use(middleware.auth({ guards: ['api'] }))
 
-router.group(() => {
-  router.get('/', [ExperiencesController, 'getExperiences'])
-  router.post('/', [ExperiencesController, 'createExperience']).use(middleware.auth({ guards: ['api'] }))
-  router.delete('/:id', [ExperiencesController, 'deleteExperience']).use(middleware.auth({ guards: ['api'] }))
-})
-.prefix('/experiences')
+router
+  .group(() => {
+    router.get('/', [ExperiencesController, 'getExperiences'])
+    router
+      .post('/', [ExperiencesController, 'createExperience'])
+      .use(middleware.auth({ guards: ['api'] }))
+    router
+      .delete('/:id', [ExperiencesController, 'deleteExperience'])
+      .use(middleware.auth({ guards: ['api'] }))
+  })
+  .prefix('/experiences')
+
+router
+  .group(() => {
+    router.get('/', [BookingsController, 'getBookings'])
+    router
+      .get('/:id', [BookingsController, 'getOneBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
+    router.post('/', [BookingsController, 'createBooking'])
+    router.put('/:id', [BookingsController, 'updateBooking'])
+    router
+      .delete('/:id', [BookingsController, 'deleteBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
+  })
+
+  .prefix('/booking')
