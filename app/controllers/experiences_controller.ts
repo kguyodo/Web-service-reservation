@@ -1,22 +1,26 @@
+import Experience from '#models/experience'
+import { createExperienceValidator } from '#validators/experience_validator'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class ExperiencesController {
 
-    getExperiences({request, response}: HttpContext) {
+    async getExperiences({response}: HttpContext) {
 
-        console.log('GET Experience')
-        return response.status(200)
+        const experiences = await Experience.all()
+        return response.ok(experiences)
     }
 
-    createExperience({request, response}: HttpContext) {
+    async createExperience({request, response}: HttpContext) {
 
-        console.log(request.body)
-        return response.status(201)
+        const requestBody = await createExperienceValidator.validate(request.body() as Experience)
+        const createdExperience = await Experience.create(requestBody)
+        return response.created(createdExperience)
     }
 
-    deleteExperience({request, response}: HttpContext) {
+    async deleteExperience({params, response}: HttpContext) {
 
-        console.log('DELETE Experience')
+        const experienceToDelete = await Experience.findOrFail(params.id)
+        experienceToDelete.delete()
         return response.status(204)
     }
 }

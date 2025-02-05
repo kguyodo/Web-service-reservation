@@ -1,8 +1,9 @@
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
-const ExperiencesController = () => import('#controllers/experiences_controller')
 const UsersController = () => import('#controllers/users_controller')
+const MailController = () => import('#controllers/mail_controller')
+const ExperiencesController = () => import('#controllers/experiences_controller')
 
 router
   .get('/', () => {
@@ -20,9 +21,11 @@ router.group(() => {
 })
 .prefix('/users')
 
+router.get('/send-mail', [MailController, 'sendEmail']).use(middleware.auth({ guards: ['api'] }))
+
 router.group(() => {
   router.get('/', [ExperiencesController, 'getExperiences'])
-  router.post('/', [ExperiencesController, 'createExperience'])
-  router.delete('/', [ExperiencesController, 'deleteExperience'])
+  router.post('/', [ExperiencesController, 'createExperience']).use(middleware.auth({ guards: ['api'] }))
+  router.delete('/', [ExperiencesController, 'deleteExperience']).use(middleware.auth({ guards: ['api'] }))
 })
 .prefix('/experiences')
