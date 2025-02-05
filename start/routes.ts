@@ -42,6 +42,7 @@ router
       .use(middleware.auth({ guards: ['api'] }))
   })
   .prefix('/experiences')
+
 router
   .group(() => {
     router.get('/', [BookingsController, 'getBookings'])
@@ -49,7 +50,9 @@ router
       .get('/:id', [BookingsController, 'getOneBooking'])
       .use(middleware.auth({ guards: ['api'] }))
     router.post('/', [BookingsController, 'createBooking'])
-    router.put('/:id', [BookingsController, 'updateBooking'])
+    router
+      .put('/:id', [BookingsController, 'updateBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
     router
       .delete('/:id', [BookingsController, 'deleteBooking'])
       .use(middleware.auth({ guards: ['api'] }))
