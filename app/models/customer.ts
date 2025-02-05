@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { v4 } from 'uuid'
 
 export default class Customer extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  public id: string = v4()
 
   @column()
   declare email: string
@@ -12,16 +13,16 @@ export default class Customer extends BaseModel {
   declare phoneNumber: string
 
   @column()
-  declare firstName: string
+  declare firstname: string
 
   @column()
-  declare lastName: string
+  declare lastname: string
 
   @column()
-  declare adress: string
+  declare address: string
 
   @column()
-  declare adressDetails: string | null
+  declare addressDetails: string | null
 
   @column()
   declare postalCode: string

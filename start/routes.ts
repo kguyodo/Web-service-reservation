@@ -13,6 +13,7 @@ import User from '#models/user'
 import { middleware } from './kernel.js'
 import { Exception } from '@adonisjs/core/exceptions'
 import hash from '@adonisjs/core/services/hash'
+import CustomersController from '#controllers/customers_controller'
 
 router
   .get('/', () => {
@@ -23,6 +24,16 @@ router
       guards: ['api'],
     })
   )
+
+router
+  .group(() => {
+    router.get('/getone/:id', [CustomersController, 'getOneCustomer'])
+    router.get('/getall', [CustomersController, 'getCustomers'])
+    router.post('/create', [CustomersController, 'postCustomer'])
+    router.put('/update/:id', [CustomersController, 'putCustomer'])
+  })
+
+  .prefix('/customer')
 
 router
   .group(() => {
