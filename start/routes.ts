@@ -1,3 +1,13 @@
+/*
+|--------------------------------------------------------------------------
+| Routes file
+|--------------------------------------------------------------------------
+|
+| The routes file is used for defining the HTTP routes.
+|
+*/
+
+const MailController = () => import('#controllers/mail_controller')
 import router from '@adonisjs/core/services/router'
 import User from '#models/user'
 import { middleware } from './kernel.js'
@@ -50,3 +60,5 @@ router
     })
   })
   .prefix('/users')
+
+router.get('/send-mail', [MailController, 'sendEmail']).use(middleware.auth({ guards: ['api'] }))
