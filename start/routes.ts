@@ -6,6 +6,7 @@ import swagger from '#config/swagger'
 const UsersController = () => import('#controllers/users_controller')
 const MailController = () => import('#controllers/mail_controller')
 const ExperiencesController = () => import('#controllers/experiences_controller')
+const BookingsController = () => import('#controllers/bookings_controller')
 const CustomersController = () => import('#controllers/customers_controller')
 
 // Returns swagger in YAML
@@ -24,13 +25,12 @@ router.get('/', () => {
 
 router
   .group(() => {
-    router.get('/getone/:id', [CustomersController, 'getOneCustomer'])
-    router.get('/getall', [CustomersController, 'getCustomers'])
-    router.post('/create', [CustomersController, 'postCustomer'])
-    router.put('/update/:id', [CustomersController, 'putCustomer'])
+    router.get('/:id', [CustomersController, 'getOneCustomer'])
+    router.get('/', [CustomersController, 'getCustomers'])
+    router.post('/', [CustomersController, 'postCustomer'])
+    router.put('/:id', [CustomersController, 'putCustomer'])
   })
-
-  .prefix('/customer')
+  .prefix('/customers')
 
 router
   .group(() => {
@@ -52,3 +52,20 @@ router
       .use(middleware.auth({ guards: ['api'] }))
   })
   .prefix('/experiences')
+
+router
+  .group(() => {
+    router.get('/', [BookingsController, 'getBookings'])
+    router
+      .get('/:id', [BookingsController, 'getOneBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
+    router.post('/', [BookingsController, 'createBooking'])
+    router
+      .put('/:id', [BookingsController, 'updateBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
+    router
+      .delete('/:id', [BookingsController, 'deleteBooking'])
+      .use(middleware.auth({ guards: ['api'] }))
+  })
+
+  .prefix('/booking')

@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { Exception } from '@adonisjs/core/exceptions'
 import Customer from '#models/customer'
-import { customerValidator } from '#validators/customer_validator'
+import { customerValidatorCreate, customerValidatorUpdate } from '#validators/customer_validator'
 
 export default class CustomersController {
   /**
@@ -48,8 +48,8 @@ export default class CustomersController {
    * @responseBody 500 - Internal Server Error
    */
   async postCustomer({ request, response }: HttpContext) {
-    const customerData = request.body() as Customer
-    const newCustomer = await Customer.create(customerData)
+    const payload = await customerValidatorCreate.validate(request.body() as Customer)
+    const newCustomer = await Customer.create(payload)
     return response.json(newCustomer)
   }
 
@@ -67,7 +67,7 @@ export default class CustomersController {
     if (!customer) {
       return response.notFound(`Customer with id ${request.param('id')} does not exist`)
     }
-    const payload = await customerValidator.validate(request.body() as Customer)
+    const payload = await customerValidatorUpdate.validate(request.body() as Customer)
     const newCustomer = await customer
       .merge({
         ...payload,
