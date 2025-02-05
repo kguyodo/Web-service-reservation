@@ -7,6 +7,7 @@ const UsersController = () => import('#controllers/users_controller')
 const MailController = () => import('#controllers/mail_controller')
 const ExperiencesController = () => import('#controllers/experiences_controller')
 const BookingsController = () => import('#controllers/bookings_controller')
+const CustomersController = () => import('#controllers/customers_controller')
 
 // Returns swagger in YAML
 router.get('/swagger', async () => {
@@ -21,6 +22,23 @@ router.get('/docs', async () => {
 router.get('/', () => {
   name: 'Hello World young frog'
 })
+
+router
+  .group(() => {
+    router.get('/:id', [CustomersController, 'getOneCustomer']).use(
+      middleware.auth({
+        guards: ['api'],
+      })
+    )
+    router.get('/', [CustomersController, 'getCustomers']).use(
+      middleware.auth({
+        guards: ['api'],
+      })
+    )
+    router.post('/', [CustomersController, 'postCustomer'])
+    router.put('/:id', [CustomersController, 'putCustomer'])
+  })
+  .prefix('/customers')
 
 router
   .group(() => {
