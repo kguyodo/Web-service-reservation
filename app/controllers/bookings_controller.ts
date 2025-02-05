@@ -9,7 +9,7 @@ export default class BookingsController {
    * @getBookings
    * @param {HttpContext} - HTTP context object containing response
    * @description Retrieve all bookings from the database
-   * @responseBody 200 - Returns an array of bookings
+   * @responseBody 200 - <Booking[]>
    * @responseBody 500 - Internal server error
    */
   async getBookings({ response }: HttpContext) {
@@ -26,7 +26,7 @@ export default class BookingsController {
    * @description Retrieve a single booking by ID
    * @param {HttpContext} - HTTP context object containing params and response
    * @response id - Booking ID to fetch - @type(HttpContext) @required
-   * @responseBody 200 - Returns the booking object
+   * @responseBody 200 - <Booking>
    * @responseBody 404 - Booking not found
    * @responseBody 500 - Internal server error
    */
@@ -49,7 +49,7 @@ export default class BookingsController {
    * @description Create a new booking in the database
    * @param {HttpContext} - HTTP context object containing request and response
    * @requestBody - Booking data to create - @type(HttpContext) @required
-   * @responseBody 201 - Returns the created booking object
+   * @responseBody 201 - <Booking>
    * @responseBody 422 - Validation error
    * @responseBody 500 - Internal server error
    */
@@ -72,7 +72,7 @@ export default class BookingsController {
    * @param {HttpContext} - HTTP context object containing request, response and params
    * @response id - Booking ID to update - @type(HttpContext) @required
    * @requestBody - Updated booking data - @type(HttpContext) @required
-   * @responseBody 200 - Returns the updated booking object
+   * @responseBody 200 - <Booking>
    * @responseBody 404 - Booking not found
    * @responseBody 500 - Internal server error
    */
