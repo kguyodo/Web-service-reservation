@@ -6,7 +6,7 @@ import { customerValidator } from '#validators/customer'
 export default class CustomersController {
   /**
    * @getCustomers
-   * @param {HttpContext} - HTTP context object containing request
+   * @param {HttpContext} - HTTP context object containing response
    * @description Returns all customers from PostgreSQL database
    * @responseBody 200 - Array of Customer objects - @type(Customer[])
    * @responseBody 500 - Internal Server Error
