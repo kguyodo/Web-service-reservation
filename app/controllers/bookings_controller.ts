@@ -1,5 +1,5 @@
 import Booking from '#models/booking'
-import { createBookingValidator, updateBookingValidator } from '#validators/booking'
+import { createBookingValidator, updateBookingValidator } from '#validators/booking_validator'
 import { Exception } from '@adonisjs/core/exceptions'
 import { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
