@@ -12,7 +12,7 @@ export default class MailController {
       })
       return response.status(200)
     } catch (error) {
-      return response.badRequest({ message: error.message })
+      return response.internalServerError({ message: error.message })
     }
   }
 }
