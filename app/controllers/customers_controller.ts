@@ -6,7 +6,6 @@ import { customerValidator } from '#validators/customer'
 export default class CustomersController {
   /**
    * @getCustomers
-   * @param {HttpContext} - HTTP context object containing response
    * @description Returns all customers from PostgreSQL database
    * @responseBody 200 - Array of Customer objects - @type(Customer[])
    * @responseBody 500 - Internal Server Error
@@ -22,7 +21,6 @@ export default class CustomersController {
 
   /**
    * @getOneCustomer
-   * @param {HttpContext} - HTTP context object containing request and response
    * @description Returns one customer with specific customer id (inside URL) from PostgreSQL database
    * @responseBody 200 - Customer object - @type(Customer)
    * @responseBody 404 - Customer not found
@@ -43,7 +41,6 @@ export default class CustomersController {
 
   /**
    * @postCustomer
-   * @param {HttpContext} - HTTP context object containing request and response
    * @description Create new Customer in database
    * @requestBody Customer - Customer data to be created - @type(Customer) @required
    * @responseBody 200 - Newly created Customer - @type(Customer)
@@ -58,7 +55,6 @@ export default class CustomersController {
 
   /**
    * @postCustomer
-   * @param {HttpContext} - HTTP context object containing request and response
    * @description Update Customer in database
    * @requestBody Customer - Customer data to be modified - @type(Customer) @required
    * @responseBody 200 - Updated Customer - @type(Customer)
