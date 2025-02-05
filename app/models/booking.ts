@@ -1,22 +1,22 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
 import { v4 } from 'uuid'
 
 export default class Booking extends BaseModel {
   @column({ isPrimary: true })
-  public id: string = v4()
+  public id?: string = v4()
 
   @column.dateTime({ autoCreate: true })
-  declare createdAt: DateTime
+  declare createdAt?: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
+  declare updatedAt?: DateTime
 
   @column.dateTime()
-  declare startDateTime: DateTime
+  declare startDateTime?: DateTime
 
   @column()
-  declare time: number
+  declare durationTime: number
 
   @column()
   declare experienceId: number
@@ -25,7 +25,7 @@ export default class Booking extends BaseModel {
   declare customerId: string
 
   @column()
-  declare playerNumber: number
+  declare playersNumber: number
 
   @column()
   declare comment: string

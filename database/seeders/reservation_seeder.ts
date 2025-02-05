@@ -1,7 +1,9 @@
+import Booking from '#models/booking'
 import Customer from '#models/customer'
 import Experience from '#models/experience'
 import User from '#models/user'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
+import { DateTime } from 'luxon'
 
 export default class extends BaseSeeder {
   async run() {
@@ -103,32 +105,31 @@ export default class extends BaseSeeder {
       },
     ])
 
-    // TODO Uncomment
-    // await Booking.createMany([
-    //   {
-    //     customerId: customers[0].id,
-    //     experienceId: experiences[0].id,
-    //     playerNumber: 6,
-    //     startDateTime: DateTime.fromISO('2025-02-05T12:30:00'),
-    //     time: 60,
-    //     comment: "Ouai c'était cool",
-    //   },
-    //   {
-    //     customerId: customers[1].id,
-    //     experienceId: experiences[1].id,
-    //     playerNumber: 8,
-    //     startDateTime: DateTime.fromISO('2025-02-06T16:00:00'),
-    //     time: 60,
-    //     comment: "J'ai bien aimé mais (j'ai pas le suite)",
-    //   },
-    //   {
-    //     customerId: customers[2].id,
-    //     experienceId: experiences[2].id,
-    //     playerNumber: 4,
-    //     startDateTime: DateTime.fromISO('2025-02-07T10:00:00'),
-    //     time: 40,
-    //     comment: 'Terrible',
-    //   },
-    // ])
+    await Booking.createMany([
+      {
+        customerId: customers[0].id,
+        experienceId: experiences[0].id,
+        playersNumber: 6,
+        startDateTime: DateTime.fromISO('2025-02-05T12:30:00'),
+        durationTime: 60,
+        comment: "Ouai c'était cool",
+      },
+      {
+        customerId: customers[1].id,
+        experienceId: experiences[1].id,
+        playersNumber: 8,
+        startDateTime: DateTime.fromISO('2025-02-06T16:00:00'),
+        durationTime: 60,
+        comment: "J'ai bien aimé mais (j'ai pas le suite)",
+      },
+      {
+        customerId: customers[2].id,
+        experienceId: experiences[2].id,
+        playersNumber: 4,
+        startDateTime: DateTime.fromISO('2025-02-07T10:00:00'),
+        durationTime: 40,
+        comment: 'Terrible',
+      },
+    ])
   }
 }
