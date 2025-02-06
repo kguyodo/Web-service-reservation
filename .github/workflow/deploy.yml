@@ -3,7 +3,7 @@ name: Deploy AdonisJS to Azure
 on:
   push:
     branches:
-      - main
+      - feat/workflow
 
 jobs:
   build-and-deploy:
