@@ -45,6 +45,8 @@ La documentation OpenAPI est accessible à l’URL `/docs` après le lancement d
 
 ## 🧪 Tests
 
+Une série de tests fonctionnels ont été développés à l'aide de la librairie [Japa](https://japa.dev/docs/introduction). Ces tests sont exécutés à chaque lors de chaque pull request ou merge grâce aux Github Actions.
+
 ## 🎯 Choix Techniques
 
 ### 🔹 Pourquoi AdonisJS ?
