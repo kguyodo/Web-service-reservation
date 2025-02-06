@@ -27,6 +27,21 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set environment variables
+        run: |
+          echo "PORT=3333" >> $GITHUB_ENV
+          echo "HOST=illusion-adonis-api.azurewebsites.net" >> $GITHUB_ENV
+          echo "LOG_LEVEL=info" >> $GITHUB_ENV
+          echo "APP_KEY=thisisappkeytest" >> $GITHUB_ENV
+          echo "NODE_ENV=development" >> $GITHUB_ENV
+          echo "DB_HOST=illusionadmin.postgres.database.azure.com" >> $GITHUB_ENV
+          echo "DB_PORT=5432" >> $GITHUB_ENV
+          echo "DB_USER=illusion" >> $GITHUB_ENV
+          echo "DB_PASSWORD=Illusion" >> $GITHUB_ENV
+          echo "DB_DATABASE=illusion_db" >> $GITHUB_ENV
+          echo "SMTP_HOST=127.0.0.1" >> $GITHUB_ENV
+          echo "SMTP_PORT=1025" >> $GITHUB_ENV
+
       - name: Run migrations
         run: node ace migration:run
         env:
