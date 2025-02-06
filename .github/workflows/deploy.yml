@@ -30,7 +30,7 @@ jobs:
       - name: Run migrations
         run: node ace migration:run
         env:
-          NODE_ENV: testing
+          NODE_ENV: test
           DB_CONNECTION: pg
           PG_HOST: ${{ secrets.PG_HOST }}
           PG_PORT: 5432
@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         run: npm run test
         env:
-          NODE_ENV: testing
+          NODE_ENV: test
           DB_CONNECTION: pg
           PG_HOST: ${{ secrets.PG_HOST }}
           PG_PORT: 5432
