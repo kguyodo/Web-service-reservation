@@ -18,13 +18,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --production
+        run: npm install --production
 
       - name: Build AdonisJS
-        run: yarn build
+        run: npm build
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
