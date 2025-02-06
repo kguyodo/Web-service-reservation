@@ -1,5 +1,9 @@
 # API de Gestion de Réservation
 
+La vidéo de présentation/démonstration est diponible ici : 
+
+https://youtu.be/PYau-0DE9Ok
+
 ## 📌 Contexte
 
 Ce projet est une API REST développée avec AdonisJS v7 et PostgreSQL pour gérer des réservations. Il inclut un système d’authentification des administrateurs et l’envoi d’e-mails pour les confirmations.
