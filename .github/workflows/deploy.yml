@@ -1,4 +1,5 @@
 name: Deploy AdonisJS to Azure
+
 on:
   push:
     branches:
