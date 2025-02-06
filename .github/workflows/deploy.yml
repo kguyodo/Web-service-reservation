@@ -30,7 +30,7 @@ jobs:
       - name: Set environment variables
         run: |
           echo "PORT=3333" >> $GITHUB_ENV
-          echo "HOST=illusion-adonis-api.azurewebsites.net" >> $GITHUB_ENV
+          echo "HOST=0.0.0.0" >> $GITHUB_ENV
           echo "LOG_LEVEL=info" >> $GITHUB_ENV
           echo "APP_KEY=thisisappkeytest" >> $GITHUB_ENV
           echo "NODE_ENV=development" >> $GITHUB_ENV
