@@ -63,7 +63,6 @@ jobs:
           PG_USER: ${{ secrets.PG_USER }}
           PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
           PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
-
   # build-and-deploy:
   #   runs-on: ubuntu-latest
 
