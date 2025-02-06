@@ -5,8 +5,50 @@ on:
     branches:
       - main
       - feat/workflow
+  pull_request:
+    branches:
+      - main
 
 jobs:
+  apply-test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run migrations
+        run: node ace migration:run
+        env:
+          NODE_ENV: testing
+          DB_CONNECTION: pg
+          PG_HOST: ${{ secrets.PG_HOST }}
+          PG_PORT: 5432
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
+
+      - name: Run tests
+        run: npm run test
+        env:
+          NODE_ENV: testing
+          DB_CONNECTION: pg
+          PG_HOST: ${{ secrets.PG_HOST }}
+          PG_PORT: 5432
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_DB_NAME: ${{ secrets.PG_DB_NAME }}
+
   build-and-deploy:
     runs-on: ubuntu-latest
 
