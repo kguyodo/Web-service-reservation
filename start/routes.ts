@@ -75,5 +75,12 @@ router
       .delete('/:id', [BookingsController, 'deleteBooking'])
       .use(middleware.auth({ guards: ['api'] }))
   })
-
   .prefix('/booking')
+
+router
+  .group(() => {
+    router
+      .get('/today', [BookingsController, 'getBookingForToday'])
+      .use(middleware.auth({ guards: ['api'] }))
+  })
+  .prefix('/booking/filters')
